@@ -1,0 +1,13 @@
+#File explorer prompt in Powershell
+
+Add-Type -AssemblyName system.windows.forms
+$fileexplorer = new-object -TypeName System.Windows.Forms.OpenFileDialog
+$fileexplorer.InitialDirectory = "C:\"
+$fileexplorer.ShowDialog()
+if($fileexplorer.checkfileexists -eq $true) {
+$Selectedfile = $fileexplorer.FileName
+Write-Output $Selectedfile
+}
+else{write-output "file does not exist"}
+
+
