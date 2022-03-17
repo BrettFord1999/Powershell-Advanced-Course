@@ -1,0 +1,8 @@
+Add-Type -AssemblyName system.collections
+$array = New-Object -TypeName System.Collections.ArrayList
+
+$array.Add("jack")
+$array.Add("jill")
+$amount = $array.count
+$array.Remove("jill")
+$array
