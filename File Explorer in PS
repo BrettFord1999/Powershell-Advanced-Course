@@ -1,9 +1,18 @@
-#File explorer prompt in Powershell
+#Added multifile and displays output of text files
 
 Add-Type -AssemblyName system.windows.forms
 $fileexplorer = new-object -TypeName System.Windows.Forms.OpenFileDialog
-$fileexplorer.InitialDirectory = "C:\"
+
+$fileexplorer.InitialDirectory = "C:\cabs"
 $fileexplorer.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+$fileexplorer.Multiselect = $true
+$fileexplorer.Title = "Text Files"
+
 $fileexplorer.ShowDialog()
-$Selectedfile = $fileexplorer.FileName
-get-content $Selectedfile
+$Selectedfile = $fileexplorer.FileNames
+foreach ($file in $Selectedfile) {
+Write-Output "The contents of $file"
+write-Output "______________________________________"
+get-content $file
+
+}
