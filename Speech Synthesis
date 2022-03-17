@@ -1,4 +1,6 @@
 #Using the .net assembly types
 add-type -AssemblyName system.speech
 $speech = new-object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+$speech.SelectVoiceByHints("female")
+$speech.rate = 3
 $speech.speak("Input to method")
