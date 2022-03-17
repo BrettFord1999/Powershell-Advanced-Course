@@ -3,11 +3,7 @@
 Add-Type -AssemblyName system.windows.forms
 $fileexplorer = new-object -TypeName System.Windows.Forms.OpenFileDialog
 $fileexplorer.InitialDirectory = "C:\"
+$fileexplorer.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
 $fileexplorer.ShowDialog()
-if($fileexplorer.checkfileexists -eq $true) {
 $Selectedfile = $fileexplorer.FileName
-Write-Output $Selectedfile
-}
-else{write-output "file does not exist"}
-
-
+get-content $Selectedfile
