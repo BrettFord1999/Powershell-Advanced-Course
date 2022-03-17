@@ -1,0 +1,4 @@
+#Using the .net assembly types
+add-type -AssemblyName system.speech
+$speech = new-object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+$speech.speak("Input to method")
