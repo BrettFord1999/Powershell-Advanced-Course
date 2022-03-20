@@ -1,10 +1,12 @@
-#check if a device is reachable and if you can connect with SSH or HTTPS
-
+#check if a device can be pinged and if you can connect with SSH or HTTPS
+#need to change how this accepts computer names so taht it's not just from a txt or csv file
 
 function Test-ConnectionMethod {
 [cmdletbinding()]
 param(
-        [string[]]$path = C:\cabs\connection-logs.txt,
+        [Alias("$logpath")]
+        [string]$path = C:\cabs\connection-logs.txt,
+        
         [string]$CSVPath
 )
 
