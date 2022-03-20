@@ -1,0 +1,55 @@
+#check if a device is reachable and if you can connect with SSH or HTTPS
+
+
+function Test-ConnectionMethod {
+
+param([string]$path,[string]$CSVPath)
+
+if($path -eq "") {
+$path = "C:\cabs\Connection-Method-logs.txt"
+
+}
+
+
+New-Item $path -Force
+
+if($CSVPath -eq ""){
+
+
+
+add-type -AssemblyName system.windows.forms
+$fileexplorer = new-object -TypeName System.Windows.Forms.OpenFileDialog
+
+$fileexplorer.InitialDirectory = "C:\cabs"
+$fileexplorer.Title = "File Explorer"
+$fileexplorer.Filter = "CSV Files (*.csv)|*.csv"
+$fileexplorer.ShowDialog()
+
+
+$CSVPath = $fileexplorer.FileName 
+
+}
+
+
+$csv = import-csv $CSVPath
+$csv | ForEach-Object {
+        $device = $_.host
+
+
+$pingresult = Test-NetConnection -computername $device -InformationLevel Quiet -WarningAction SilentlyContinue
+$port22result = Test-NetConnection -computername $device -InformationLevel Quiet -WarningAction SilentlyContinue -port 22
+$http80result = Test-NetConnection -computername $device -InformationLevel Quiet -WarningAction SilentlyContinue -port 80
+$http443result = Test-NetConnection -computername $device -InformationLevel Quiet -WarningAction SilentlyContinue -port 443
+
+
+Add-Content $path @"
+$device
+Ping     : $pingresult
+SSH 22   : $port22result
+Http 80  : $http80result
+Https 443: $http443result
+
+"@
+}
+
+}
