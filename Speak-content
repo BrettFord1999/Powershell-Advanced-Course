@@ -1,0 +1,22 @@
+function speak-content {
+
+Add-Type -AssemblyName system.windows.forms
+$fileexplorer = new-object -TypeName System.Windows.Forms.OpenFileDialog
+add-type -AssemblyName system.speech
+$speech = new-object -TypeName System.Speech.Synthesis.SpeechSynthesizer
+
+
+$fileexplorer.InitialDirectory = "C:\cabs"
+$fileexplorer.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+$fileexplorer.Multiselect = $true
+$fileexplorer.Title = "Text Files"
+
+$fileexplorer.ShowDialog()
+$Selectedfile = $fileexplorer.FileNames
+
+$content = Get-Content $Selectedfile
+
+$speech.speak("$content")
+
+
+}
