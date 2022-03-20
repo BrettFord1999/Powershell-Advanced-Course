@@ -2,14 +2,11 @@
 
 
 function Test-ConnectionMethod {
-
-param([string]$path,[string]$CSVPath)
-
-if($path -eq "") {
-$path = "C:\cabs\Connection-Method-logs.txt"
-
-}
-
+[cmdletbinding()]
+param(
+        [string[]]$path = C:\cabs\connection-logs.txt,
+        [string]$CSVPath
+)
 
 New-Item $path -Force
 
