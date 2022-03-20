@@ -2,13 +2,22 @@
 #need to change how this accepts computer names so taht it's not just from a txt or csv file
 
 function Test-ConnectionMethod {
-[cmdletbinding()]
+[cmdletbinding(DefaultParameterSetName="File")]
 param(
         [Alias("$logpath")]
         [string]$path = C:\cabs\connection-logs.txt,
         
+        [Parameter(ParameterSetName="File"]
         [string]$CSVPath
+        
 )
+param(
+[Parameter(ParameterSetName="devices"]
+[String[]]$devices
+)
+
+#check which parameters were used
+if($psboundparameters.containskey("devices")) {skip file selection process}
 
 New-Item $path -Force
 
